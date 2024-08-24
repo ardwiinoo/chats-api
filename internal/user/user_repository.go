@@ -16,10 +16,23 @@ type repository struct {
 	db DBTX
 }
 
+// GetUserByEmail implements Repository.
+func (r *repository) GetUserByEmail(ctx context.Context, email string) (*User, error) {
+	u := User{}
+
+	query := "SELECT id, email, username, password FROM users WHERE email = $1"
+	err := r.db.QueryRowContext(ctx, query, email).Scan(&u.ID, &u.Email, &u.Username, &u.Password)
+	if err != nil {
+		return &User{}, err
+	}
+
+	return &u, nil
+}
+
 // CreateUser implements Repository.
 func (r *repository) CreateUser(ctx context.Context, user *User) (*User, error) {
 	var lastInsertId int
-	
+
 	query := "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id"
 	err := r.db.QueryRowContext(ctx, query, user.Username, user.Email, user.Password).Scan(&lastInsertId)
 
