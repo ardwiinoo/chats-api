@@ -32,3 +32,32 @@ func (h *Handler) CreateUser(gctx *gin.Context) {
 
 	gctx.JSON(http.StatusOK, res)
 }
+
+func (h *Handler) Login(gctx *gin.Context) {
+	var payload LoginUserReq
+
+	if err := gctx.ShouldBindJSON(&payload); err != nil {
+		gctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	u, err := h.Service.Login(gctx.Request.Context(), &payload)
+	if err != nil {
+		gctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	gctx.SetCookie("jwt", u.accessToken, 3600, "/", "localhost", false, true)
+
+	res := &LoginUserRes{
+		Username: u.Username,
+		ID: u.ID,
+	}
+
+	gctx.JSON(http.StatusOK, res)
+}
+
+func (h *Handler) Logout(gctx *gin.Context) {
+	gctx.SetCookie("jwt", "", -1, "", "", false, true)
+	gctx.JSON(http.StatusOK, gin.H{"message": "logout successful"})
+}
