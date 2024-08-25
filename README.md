@@ -87,3 +87,59 @@ Response Body (Failed) :
     "error": "EOF"
 }
 ```
+
+## Websocket
+
+### Create Room
+
+Endpoint: POST /ws/create-room
+
+Request Body :
+
+```json
+{
+    "id": 1,
+    "name": "room1"
+}
+```
+
+Response Body (Success) :
+
+```json
+{
+    "id": 1,
+    "name": "room1"
+}
+```
+
+Response Body (Failed) :
+
+```json
+{
+    "error": "EOF"
+}
+```
+
+### Join Room
+
+Endpoint: ws://localhost:8080/ws/join-room/:roomId?userId=1&username=user
+
+Response Body (Connected) :
+
+```json
+Connected to ws://localhost:8080/ws/join-room/:roomId?userId=1&username=user
+
+Handshake details
+...
+Request Method: "GET"
+Status Code: "101 Switching Protocols"
+...
+```
+
+Response Body (Failed) :
+
+```json
+{
+    "error": "EOF"
+}
+```
