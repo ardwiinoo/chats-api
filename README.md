@@ -126,7 +126,7 @@ Endpoint: ws://localhost:8080/ws/join-room/:roomId?userId=1&username=user
 
 Response Body (Connected) :
 
-```json
+```text
 Connected to ws://localhost:8080/ws/join-room/:roomId?userId=1&username=user
 
 Handshake details
@@ -142,4 +142,49 @@ Response Body (Failed) :
 {
     "error": "EOF"
 }
+```
+
+### Get Rooms
+
+Endpoint: GET /ws/get-rooms
+
+Response Body (Success) :
+
+```json
+{
+    "id": 1,
+    "name": "room1"
+},
+{
+    "id": 2,
+    "name": "room2"
+},
+{
+    "id": 3,
+    "name": "room3"
+}
+...
+```
+
+### Get Clients
+
+Endpoint: GET /ws/get-clients
+
+Response Body (Success) :
+
+```json
+{
+    "id": 1,
+    "username": "user1"
+},
+{
+    "id": 2,
+    "username": "user2"
+},
+{
+    "id": 3,
+    "username": "user3"
+}
+...
+``
 ```
