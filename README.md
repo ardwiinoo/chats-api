@@ -163,7 +163,6 @@ Response Body (Success) :
     "id": 3,
     "name": "room3"
 }
-...
 ```
 
 ### Get Clients
@@ -185,6 +184,4 @@ Response Body (Success) :
     "id": 3,
     "username": "user3"
 }
-...
-``
 ```
